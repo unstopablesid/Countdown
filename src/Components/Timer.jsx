@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
+import Baground from "../assets/Background.jpg";
 
 export default function CountdownTimer() {
     const [timeLeft, setTimeLeft] = useState({ hours: 28, minutes: 0, seconds: 0 });
@@ -63,8 +64,8 @@ export default function CountdownTimer() {
 
     return (
         <div
-            className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white"
-            style={{ backgroundImage: "url('/src/assets/Background.jpg')" }}
+            className="Baground flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white"
+            style={{ backgroundImage: `url(${Baground})` }}
         >
             <motion.h1
                 initial={{ y: -100, opacity: 0 }}
@@ -87,9 +88,9 @@ export default function CountdownTimer() {
             ) : (
                 <div className="countdown-container text-black flex space-x-6 bg-white bg-opacity-30 px-6 py-4 rounded-lg shadow-xl">
                     {renderBox(timeLeft.hours, "Hours")}
-                    <span className=" font-bold" style={{fontSize:"80px"}}>:</span>
+                    <span className="font-bold" style={{ fontSize: "80px" }}>:</span>
                     {renderBox(timeLeft.minutes, "Minutes")}
-                    <span className="text-10xl font-bold" style={{fontSize:"80px"}}>:</span>
+                    <span className="text-10xl font-bold" style={{ fontSize: "80px" }}>:</span>
                     {renderBox(timeLeft.seconds, "Seconds")}
                 </div>
             )}
