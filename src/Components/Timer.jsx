@@ -2,24 +2,23 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import Baground from "../assets/Background.jpg";
+import Banner from "../assets/Banner.png";
 
 export default function CountdownTimer() {
     const [timeLeft, setTimeLeft] = useState({ hours: 28, minutes: 0, seconds: 0 });
     const [isActive, setIsActive] = useState(false);
+    const [isOver, setIsOver] = useState(false);
 
     useEffect(() => {
-        // Define the start and end time
-        const startTime = new Date("2025-03-06T16:39:00").getTime();
-        const endTime = startTime + 28 * 60 * 60 * 1000; // 28 hours later
+        const startTime = new Date("2025-03-06T16:12:00").getTime();
+        const endTime = startTime + 28 * 60 * 60 * 1000;
 
         const updateTimer = () => {
             const now = new Date().getTime();
             if (now < startTime) {
-                // Before 11:00 AM on March 8th → Show waiting message
                 setIsActive(false);
                 setTimeLeft({ hours: 28, minutes: 0, seconds: 0 });
             } else if (now >= startTime && now < endTime) {
-                // Between March 8th, 11:00 AM - March 9th, 3:00 PM → Start Countdown
                 setIsActive(true);
                 const difference = endTime - now;
                 setTimeLeft({
@@ -28,9 +27,10 @@ export default function CountdownTimer() {
                     seconds: Math.floor((difference % (1000 * 60)) / 1000),
                 });
             } else {
-                // After March 9th, 3:00 PM → Stop Countdown
                 setIsActive(false);
+                setIsOver(true);
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+                gsap.to(".countdown-container", { opacity: 0, scale: 0.5, duration: 1.5 });
             }
         };
 
@@ -67,25 +67,21 @@ export default function CountdownTimer() {
             className="Baground flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white"
             style={{ backgroundImage: `url(${Baground})` }}
         >
-            <motion.h1
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="text-4xl font-bold mb-6 bg-white text-black bg-opacity-30 px-6 py-3 rounded-lg"
-            >
-                Hackathon Countdown
-            </motion.h1>
-
-            {!isActive ? (
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1.2 }}
-                    className="text-lg text-black font-semibold bg-black bg-opacity-50 px-4 py-2 rounded-md mb-4"
+            <img src={Banner} alt="" className="pb-2" />
+    
+            {/* Hide title when countdown is over */}
+            {isActive && (
+                <motion.h1
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="text-4xl font-bold mb-6 bg-white text-black bg-opacity-30 px-6 py-3 rounded-lg"
                 >
-                    Starts on March 8, 11:00 AM
-                </motion.p>
-            ) : (
+                    Hackathon Countdown
+                </motion.h1>
+            )}
+    
+            {isActive ? (
                 <div className="countdown-container text-black flex space-x-6 bg-white bg-opacity-30 px-6 py-4 rounded-lg shadow-xl">
                     {renderBox(timeLeft.hours, "Hours")}
                     <span className="font-bold" style={{ fontSize: "80px" }}>:</span>
@@ -93,7 +89,17 @@ export default function CountdownTimer() {
                     <span className="text-10xl font-bold" style={{ fontSize: "80px" }}>:</span>
                     {renderBox(timeLeft.seconds, "Seconds")}
                 </div>
+            ) : (
+                <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    className="bg-red-600 text-white text-xl font-bold px-6 py-3 rounded-lg shadow-lg"
+                >
+                    The Hackathon Has Ended!
+                </motion.div>
             )}
         </div>
     );
+    
 }
