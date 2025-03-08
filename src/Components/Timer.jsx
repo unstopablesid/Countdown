@@ -11,7 +11,7 @@ export default function CountdownTimer() {
     const [beforeStart, setBeforeStart] = useState(true);
 
     useEffect(() => {
-        const startTime = new Date("2025-03-08T10:59:00").getTime();
+        const startTime = new Date("2025-03-08T11:14:00").getTime();
         const endTime = startTime + 28 * 60 * 60 * 1000;
 
         const updateTimer = () => {
@@ -78,7 +78,7 @@ export default function CountdownTimer() {
                     transition={{ duration: 1.2, ease: "easeOut" }}
                     className="bg-white text-black text-xl font-bold px-6 py-3 rounded-lg shadow-lg"
                 >
-                    Hackathon starts at 11 AM!
+                    Hackathon starts at 11:15 AM!
                 </motion.div>
             )}
     
