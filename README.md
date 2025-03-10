@@ -1,6 +1,6 @@
 # Countdown
 
-A simple and customizable countdown timer built using React and GSAP. This project provides a sleek and user-friendly interface to set and track countdowns for various purposes such as events, deadlines, or reminders.
+A simple and customizable countdown timer made for Hackthon GHRhack-1.0 built using React and GSAP. This project provides a sleek and user-friendly interface to set and track countdowns for various purposes such as event Countdown of 28 hours
 
 ## Features
 
