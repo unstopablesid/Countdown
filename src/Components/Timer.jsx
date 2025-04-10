@@ -112,7 +112,7 @@ export default function CountdownTimer() {
                         transition={{ duration: 1.2, ease: "easeOut" }}
                         className="bg-red-600 text-white text-xl font-bold px-6 py-3 rounded-lg shadow-lg"
                     >
-                        The Hackathon Has Ended!
+                        The Hackathon Has Ended on 9th March 2025!
                     </motion.div>
                 )
             }
