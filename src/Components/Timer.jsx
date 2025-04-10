@@ -19,9 +19,11 @@ export default function CountdownTimer() {
             if (now < startTime) {
                 setIsActive(false);
                 setBeforeStart(true);
+                setIsOver(false); // Ensure "isOver" is false before the start
             } else if (now >= startTime && now < endTime) {
                 setIsActive(true);
                 setBeforeStart(false);
+                setIsOver(false); // Ensure "isOver" is false during the event
                 const difference = endTime - now;
                 setTimeLeft({
                     hours: Math.floor(difference / (1000 * 60 * 60)),
@@ -30,7 +32,8 @@ export default function CountdownTimer() {
                 });
             } else {
                 setIsActive(false);
-                setIsOver(true);
+                setBeforeStart(false);
+                setIsOver(true); // Set "isOver" to true after the event
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
                 gsap.to(".countdown-container", { opacity: 0, scale: 0.5, duration: 1.5 });
             }
